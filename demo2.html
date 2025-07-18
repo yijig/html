@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員註冊 - HTML5攻略營</title>
+</head>
+<body>
+    <h1>會員註冊</h1>
+    <p>請填寫以下資料完成註冊：</p>
+    
+    <form action="register.php" method="post" enctype="multipart/form-data">
+        
+        <!-- 基本資料區塊 -->
+        <fieldset>
+            <legend>基本資料</legend>
+            
+            <p>
+                <label for="username">帳號：</label>
+                <input type="text" id="username" name="username" 
+                    minlength="3" maxlength="20" 
+                    pattern="[A-Za-z0-9_]+" 
+                    title="帳號只能包含英文、數字和底線，長度3-20字元"
+                    placeholder="請輸入帳號" required>
+            </p>
+            
+            <p>
+                <label for="password">密碼：</label>
+                <input type="password" id="password" name="password" 
+                    minlength="8" maxlength="50"
+                    placeholder="至少8個字元" required>
+            </p>
+            
+            <p>
+                <label for="confirm-password">確認密碼：</label>
+                <input type="password" id="confirm-password" name="confirm-password" 
+                    placeholder="請再次輸入密碼" required>
+            </p>
+            
+            <p>
+                <label for="email">電子郵件：</label>
+                <input type="email" id="email" name="email" 
+                    placeholder="example@email.com" 
+                    autocomplete="email" required>
+            </p>
+        </fieldset>
+        
+        <!-- 個人資訊區塊 -->
+        <fieldset>
+            <legend>個人資訊</legend>
+            
+            <p>
+                <label for="fullname">真實姓名：</label>
+                <input type="text" id="fullname" name="fullname" 
+                    placeholder="請輸入您的真實姓名" 
+                    autocomplete="name" required>
+            </p>
+            
+            <p>
+                <label for="birthday">生日：</label>
+                <input type="date" id="birthday" name="birthday">
+            </p>
+            
+            <fieldset>
+                <legend>性別</legend>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">男性</label>
+                
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">女性</label>
+                
+                <input type="radio" id="prefer-not-to-say" name="gender" value="prefer-not-to-say">
+                <label for="prefer-not-to-say">不願透露</label>
+            </fieldset>
+            
+            <p>
+                <label for="phone">聯絡電話：</label>
+                <input type="tel" id="phone" name="phone" 
+                    pattern="09[0-9]{2}-[0-9]{3}-[0-9]{3}"
+                    placeholder="0912-345-678"
+                    title="請輸入正確的手機號碼格式">
+            </p>
+        </fieldset>
+        
+        <!-- 地址資訊區塊 -->
+        <fieldset>
+            <legend>地址資訊</legend>
+            
+            <p>
+                <label for="city">居住城市：</label>
+                <select id="city" name="city" required>
+                    <option value="">請選擇</option>
+                    <optgroup label="直轄市">
+                        <option value="taipei">台北市</option>
+                        <option value="newtaipei">新北市</option>
+                        <option value="taoyuan">桃園市</option>
+                        <option value="taichung">台中市</option>
+                        <option value="tainan">台南市</option>
+                        <option value="kaohsiung">高雄市</option>
+                    </optgroup>
+                    <optgroup label="縣市">
+                        <option value="keelung">基隆市</option>
+                        <option value="hsinchu-city">新竹市</option>
+                        <option value="hsinchu-county">新竹縣</option>
+                        <option value="miaoli">苗栗縣</option>
+                    </optgroup>
+                </select>
+            </p>
+            
+            <p>
+                <label for="address">詳細地址：</label>
+                <textarea id="address" name="address" 
+                        rows="3" cols="50"
+                        placeholder="請輸入完整地址"></textarea>
+            </p>
+        </fieldset>
+        
+        <!-- 興趣愛好區塊 -->
+        <fieldset>
+            <legend>興趣愛好（可複選）</legend>
+            
+            <input type="checkbox" id="programming" name="hobbies[]" value="programming">
+            <label for="programming">程式設計</label>
+            
+            <input type="checkbox" id="reading" name="hobbies[]" value="reading">
+            <label for="reading">閱讀</label>
+            
+            <input type="checkbox" id="music" name="hobbies[]" value="music">
+            <label for="music">音樂</label>
+            
+            <input type="checkbox" id="sports" name="hobbies[]" value="sports">
+            <label for="sports">運動</label>
+            
+            <input type="checkbox" id="travel" name="hobbies[]" value="travel">
+            <label for="travel">旅遊</label>
+            
+            <input type="checkbox" id="photography" name="hobbies[]" value="photography">
+            <label for="photography">攝影</label>
+        </fieldset>
+        
+        <!-- 其他資訊區塊 -->
+        <fieldset>
+            <legend>其他資訊</legend>
+            
+            <p>
+                <label for="bio">自我介紹：</label>
+                <textarea id="bio" name="bio" 
+                        rows="6" cols="60"
+                        maxlength="500"
+                        placeholder="請簡短介紹自己（最多500字）"></textarea>
+            </p>
+            
+            <p>
+                <label for="avatar">個人頭像：</label>
+                <input type="file" id="avatar" name="avatar" 
+                    accept="image/jpeg,image/png,image/gif">
+                <small>支援格式：JPG, PNG, GIF，檔案大小不超過2MB</small>
+            </p>
+            
+            <p>
+                <label for="website">個人網站：</label>
+                <input type="url" id="website" name="website" 
+                    placeholder="https://www.example.com">
+            </p>
+        </fieldset>
+        
+        <!-- 同意條款 -->
+        <fieldset>
+            <legend>服務條款</legend>
+            
+            <input type="checkbox" id="agree-terms" name="agree-terms" value="yes" required>
+            <label for="agree-terms">我已閱讀並同意 <a href="terms.html" target="_blank">服務條款</a> 和 <a href="privacy.html" target="_blank">隱私政策</a></label>
+            
+            <br><br>
+            
+            <input type="checkbox" id="subscribe-newsletter" name="subscribe-newsletter" value="yes">
+            <label for="subscribe-newsletter">我希望收到最新消息和優惠資訊</label>
+        </fieldset>
+        
+        <!-- 送出按鈕 -->
+        <p>
+            <button type="submit">註冊會員</button>
+            <button type="reset">重新填寫</button>
+        </p>
+    </form>
+    
+    <p>已經有帳號了？<a href="login.html">立即登入</a></p>
+</body>
+</html>
