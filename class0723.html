@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript學習</title>
+    <style>
+        .highlight { background-color: yellow; }
+        .hidden { display: none; }
+        .red { color: red; }
+    </style>
+</head>
+<body>
+    <div>
+    <h1 id="title">我的網站</h1>
+    <p id="content">這是內容</p>
+
+    <button id="btn1">按鈕1</button>
+    <button id="btn2">按鈕2</button>
+
+    <input type="text" id="input1" placeholder="輸入文字">
+
+    <ul id="lists">
+        <li>項目1</li>
+        <li>項目2</li>
+    </ul>
+
+    <div id="message"></div>
+
+    <select id="myselect">
+        <option value="1">val 01</option>
+        <option value="2">val 01</option>
+        <option value="3">val 01</option>
+    </select>
+
+    
+        <p class="x">第一個 </p>
+        <p class="x"> 第二個</p>
+        <p class="x">第三個</p>
+</div>
+    <ul id="list">
+
+    </ul>
+    <input type="text" id="input">
+    <button id="add">新增留言</button>
+
+    <button id="load">輸入資料</button>
+    <div id="post">在這裡</div>
+    <script>
+
+
+
+
+
+        // 找到ID為"title"的元素
+    let titleElement = document.getElementById('title');
+    console.log(titleElement);
+    titleElement.textContent="被修改";
+    titleElement.innerHTML="這是用inner 改得"
+
+    let allButtons = document.getElementsByTagName('button');
+console.log(allButtons); // 顯示有幾個button
+
+        let x =document.querySelector('.x');
+        x.textContent="更改";
+    let select =document.getElementById('myselect');
+    let news = document.createElement('option');
+        news.textContent="哈哈";
+        select.appendChild(news);
+        // JavaScript程式碼寫在這裡
+    
+    
+    let add=document.getElementById("add");
+    add.addEventListener("click",function(event){
+        
+        const text=document.getElementById("input").value;
+        console.log(text);
+        const li=document.createElement("li");
+        li.innerHTML=`<button class="delete">x</button><span>${text}</span>`;
+        document.getElementById("list").appendChild(li);
+
+    })
+    
+    let cl = document.getElementById('list');
+    cl.addEventListener("click",function(e){
+        console.log(e.target);
+        let z=e.target;
+       
+        if(e.target.classList.contains('delete'))
+    {   console.log("有進入");
+    
+       
+        
+    }
+    
+        
+
+    })
+
+    let btn =document.getElementById("load");
+    btn.addEventListener("click",getPost);
+
+    async function getPost(){
+     console.log("有進入");
+     
+        const result =await fetch('https://jsonplaceholder.typicode.com/posts/1');
+    
+    console.log(result);
+    
+        const post =await result.json();
+    console.log(post);
+    document.getElementById("post").innerHTML =
+     `
+     <h1>哈哈</h1>
+     <h3>${post.title}</h3>
+    
+     
+     `;
+     console.log("有進入1");
+
+    }
+    
+    
+    </script>
+</body>
+</html>

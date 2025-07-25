@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .color-display-div{
+            width: 150px;
+            height:150px;
+            background-color: azure
+        };
+    </style>
+</head>
+<body>
+    <h1>調色盤</h1>
+    <div class="color-display-div" id="colorDisplay">
+    
+    </div>
+    <div>
+        <label for="red_val">紅色</label>
+        <input type="range" id="red_val" name="red_val" min="0" max="255" >
+        <span id="redspan"></span>
+    </div>
+    <div>
+        <label for="green_val">綠色</label>
+        <input type="range" id="green_val" name="green_val" min="0" max="255">
+        <span id="greenspan"></span>
+    </div>
+    <div>
+    <div>
+        <label for="blue_val">藍色</label>
+        <input type="range" id="blue_val" name="blue_val" min="0" max="255">
+        <span id="bluespan"></span>
+        
+    </div>
+    <script>
+        //我們要先取得range這些物件
+        let red=document.getElementById("red_val");
+        let green=document.getElementById("green_val");
+        let blue=document.getElementById("blue_val");
+        console.log(red.value);
+        console.log(green.value);
+        console.log(blue.value);
+        
+        red.addEventListener('input',updateColor);
+        green.addEventListener('input',updateColor);
+        blue.addEventListener('input',updateColor);
+        
+        function updateColor(){
+            console.log("事件被觸發了!!!");
+            let redVal=parseInt(red.value);
+            let greenVal=parseInt(green_val.value);
+            let blueVal=parseInt(blue_val.value);
+            console.log(redVal);
+            console.log(greenVal);
+            console.log(blueVal);
+
+            document.getElementById("redspan").textContent = redVal;
+            document.getElementById("greenspan").textContent = greenVal;
+            document.getElementById("bluespan").textContent = blueVal;
+           
+
+            let rgbColor =`rgb(${redVal},${greenVal},${blueVal})`;
+            console.log(rgbColor,"哈哈");
+            document.getElementById("colorDisplay").style.backgroundColor = rgbColor;
+            
+        }
+        updateColor();
+    </script>
+    
+</body>
+</html>

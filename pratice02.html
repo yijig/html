@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>待辦事項管理器</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .todo-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        button {
+            margin-left: 10px;
+            padding: 5px 10px;
+        }
+        .stats {
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>我的待辦事項</h1>
+
+    <div class="stats" id="stats">
+        總共：0 項 | 已完成：0 項
+    </div>
+
+    <div>
+        <input type="text" id="todoInput" placeholder="輸入待辦事項...">
+        <button id="addBtn">新增</button>
+    </div>
+
+    <div id="todoList"></div>
+
+    <script>
+        
+        // JavaScript程式碼實作在這裡
+    
+        let todos=[];
+        let nextNo=1;
+        function addTodo(text){
+
+            if(!text.trim()){
+                alert('代辦事項要有內容');
+                return;
+            }
+
+            let newTodo ={
+                id:nextNo++,
+                text:text.trim(),
+                finsh:false
+
+
+            };
+
+            todos.push(newTodo);
+            renderTodos();
+            updateStats();
+            document.getElementById("todoInput").value="";
+            console.log("目前清單如下;");
+            console.log(todos);
+        }
+
+        
+        function toggleTodo(id) {
+            // 切換完成狀態
+            console.log(id);
+            //todos[id].finish=true;
+            for(let todo of todos){
+
+                if(todo.id===id){
+                    todo.finsh = !todo.finsh;
+                    break;
+                }
+
+
+            }
+
+            renderTodos();
+        }
+
+        function deleteTodo(id) {
+            // 刪除待辦事項
+        }
+
+        function renderTodos() {
+            // 重新顯示所有待辦事項
+            let todoList=document.getElementById("todoList");
+            if(todos.length===0){
+                todoList.innerHTML = "<p>還沒有代辦事項<p>";
+                return;
+            }
+            
+            let htmlstr='';
+
+
+
+                for( let todo of todos){
+                    let finish=todo.finsh?'completed':'';
+                    htmlstr+=`                    
+                    <div class="todo-item">
+                        <span class="${finish}" onclick="toggleTodo(${todo.id})">${todo.text}</span>
+                        <button class="delete">刪除</button>
+                    </div>
+                    `;
+                    
+                }
+                
+                todoList.innerHTML=htmlstr;
+                 
+
+
+            
+        }
+
+        function updateStats() {
+            // 更新統計資訊
+        }
+
+        document.getElementById("addBtn").addEventListener("click",function(event){
+
+            let text=document.getElementById("todoInput").value;
+
+            addTodo(text);
+        })
+
+        renderTodos();
+    </script>
+</body>
+</html>

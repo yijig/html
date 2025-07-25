@@ -19,8 +19,185 @@
             padding: 0px;
             margin: 0px;
         }
+        .container{
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: auto auto  1fr auto;
+            grid-template-areas: 
+            "navbar"
+            "header"
+            "main"
+            "footer";
+        }
 
-        section:nth-child(odd){
+        .navbar{
+            background-color: aqua;
+            position:sticky;
+            top:0;
+            z-index:1000 ;
+            grid-area: navbar;
+        }
+
+        .nav-container{
+            max-width :1280px ;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 20px;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        .nav-menu{
+            display: flex;
+            list-style:none ;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-item{
+            position: relative;
+        }
+        .nav-item a{
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: backkground-color 0.7s;
+
+        }
+        .nav-item a:hover{
+            background-color: blue;
+        }
+
+        .nav-toggle{
+            display:none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-toggle .bar{
+            
+            width:25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0px;
+            transition: 0.3s;
+        }
+        #nav-checkbox{
+            display: none;
+        }
+
+        .nav-overlay{
+            position: fixed;
+            top:0;
+            left: 0;
+            width:100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+            opacity: 0;
+        }
+        #nav-checkbox:checked ~ .nav-overlay{
+            opacity: 1;
+            visibility: visible;
+
+
+        }
+        /*gird 設定header*/
+        .header{
+            background-image: linear-gradient(rgba(235, 37, 96, 0.685),rgb(67, 130, 247));
+            color: white;
+            padding: 2em;
+            text-align: center;
+            position: relative;
+            grid-area: header;
+            display: flex;
+            flex-direction: column;
+            
+        }
+        .avatar{
+            width:150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+        .main-content{
+            display:grid;
+            grid-template-areas: 
+            "sidebar content";
+            grid-template-columns: 300px 1fr;
+            min-height: 600px;
+            grid-area: main;
+        }
+        .sidebar{
+            grid-area: sidebar;
+            background-color: aquamarine;
+            padding: 2em;
+        }
+        .content{
+            grid-area: content;
+            padding: 2em;
+            background-color: blanchedalmond;
+        }
+        .footer{
+            grid-area: footer;
+            background-color: rgb(107, 231, 69);
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+
+        @media screen and (max-width:768px){
+            .nav-toggle{
+                display: flex;
+                
+            }
+            /* 設定選單在手機板的位置 */
+            .nav-menu{
+                position: fixed;
+                left: -100%;/*在螢幕左側相同的位置*/
+                top:60px;/* 高度對其在navbar 下方*/
+                flex-direction:column;
+                width: 100%;
+                background-color:rgb(39, 153, 168);
+                text-align: center;
+                z-index: 999;
+                transition:  left 0.3 ease;
+            }
+            #nav-checkbox:checked ~ .nav-container .nav-menu{
+                left: 0;
+            }
+
+            #nav-checkbox:checked ~.nav-container .nav-toggle .bar:nth-child(1){
+                transform: rotate( -45deg) translate(-5px,8px);
+            }
+            #nav-checkbox:checked ~.nav-container .nav-toggle .bar:nth-child(2){
+                opacity: 0;
+            }
+            #nav-checkbox:checked ~.nav-container .nav-toggle .bar:nth-child(3){
+                transform: rotate( 45deg) translate(-5px,-8px);
+
+            }
+            .main-content{
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                "sidebar"
+                "content" ;
+            }
+        }
+
+
+        /* section:nth-child(odd){
             background-color: burlywood;
             padding: 1.5em;
 
@@ -97,9 +274,9 @@
             background-repeat:no-repeat ;
             background-position:center ;
             background-size: contain;
-            height: auto;
-            width: 100%;
-           
+            
+            
+        
         }
         header h1{
             text-align: center;
@@ -122,117 +299,138 @@
             color: aliceblue;
             text-decoration: none;
 
-        }
+        } */
         
+
     </style>
 </head>
 <body>
-    <header>
+    <div class="container">
+    
+        
+        
+        <nav class="navbar">
+            <!-- 要使用checkbox 觸發手機的呈現 -->
+            <input type="checkbox" id="nav-checkbox">
+            <label for="nav-checkbox" class="nav-overlay"></label>
+            <div class="nav-container">
+                <ul class="nav-menu">               
+                    <li class="nav-item"><a href="#about">個人基本資料</a></li>
+                    <li class="nav-item"><a href="#edu">教育背景表格</a></li>
+                    <li class="nav-item"><a href="#experience">工作經驗表格</a></li>
+                    <li class="nav-item"><a href="#skill">技能列表</a></li>
+                    <li class="nav-item"><a href="#contact">聯絡表單</a></li>
+                </ul>
+                <label for="nav-checkbox" class="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+            </div>
+            
+        </nav>
+    <header class="header">
+        
+            <img src="image/xx.jpg" class="avatar" alt="女帝圖片" height="250px" >
+        
+        
         <h1>劉文文的個人資料表</h1>
         <p>Java 工程師</p>
-        <nav>
-            <ul>               
-                <li><a href="#about">個人基本資料</a></li>
-                <li><a href="#edu">教育背景表格</a></li>
-                <li><a href="#experience">工作經驗表格</a></li>
-                <li><a href="#skill">技能列表</a></li>
-                <li><a href="#contact">聯絡表單</a></li>
-            </ul>
-        </nav>
     </header>
-
-    <main>
-        
+    
+    <main class="main-content">
+        <aside class="sidebar">
             <!-- 個人資料 -->
-        <section id="about">
-            <h2 >**個人基本資料**</h2>
-            <div>姓名:劉文文</div>
-            <img src="image/xx.jpg" alt="女帝圖片" height="250px" >
-            <div>信箱:lu8888@yahoo.com.tw</div>
-            <div>電話:0933222444</div>
-            
-        </section>
+            <section class="about">
+                
+                <h2 >**個人基本資料**</h2>
+                <div>姓名:劉文文</div>
+                <div>信箱:lu8888@yahoo.com.tw</div>
+                <div>電話:0933222444</div>
+                
+            </section>
+        </aside>
+        <div class="content">
         <!-- 教育背景表格 -->
-        <section id="edu">
-            <table >
-                <caption>**教育背景表格**</caption>
-                <br>
-                <thead>
-                    <tr>
-                        <th colspan="2">學校名稱</th>
-                        <th>科系</th>
-                        <th colspan="2">就讀期間</th>
-                        <th>學位</th>
+            <section id="edu">
+                <table >
+                    <caption>**教育背景表格**</caption>
+                    <br>
+                    <thead>
+                        <tr>
+                            <th colspan="2">學校名稱</th>
+                            <th>科系</th>
+                            <th colspan="2">就讀期間</th>
+                            <th>學位</th>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td  colspan="2"></th>台灣大學</td>
+                            <td>音樂</td>
+                            <td  colspan="2">2017-2019</td>
+                            <td>大學</td>
+                        </tr>
+                        <tr>
+                            <td  colspan="2"></th>建國中學</td>
+                            <td>普通科</td>
+                            <td  colspan="2">2018-2020</td>
+                            <td>高中</td>
+                        </tr>
                     
-                </thead>
-                <tbody>
-                    <tr>
-                        <td  colspan="2"></th>台灣大學</td>
-                        <td>音樂</td>
-                        <td  colspan="2">2017-2019</td>
-                        <td>大學</td>
-                    </tr>
-                    <tr>
-                        <td  colspan="2"></th>建國中學</td>
-                        <td>普通科</td>
-                        <td  colspan="2">2018-2020</td>
-                        <td>高中</td>
-                    </tr>
-                
-                </tbody>
-            </table>
-        </section> 
-        <!-- 工作經驗表格 -->
-        <section id="experience">
-            <table >
-                <caption>**工作經驗表格**</caption>
-                <br>
-                <thead>
-                    <tr>
-                        <th>公司名稱</th>
-                        <th>職位</th>
-                        <th colspan="2">工作期間</th>
-                        <th colspan="2">主要職責</th>
-                    
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>鴻海</td>
-                        <td>工程師</td>
-                        <td colspan="2">2022-2025</td>
-                        <td colspan="2">寫程式</td>
-                    </tr>
-                    <tr>
-                        <td>台積電</td>
-                        <td>工程師</td>
-                        <td colspan="2">2012-2015</td>
-                        <td colspan="2">寫程式</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </section> 
+            <!-- 工作經驗表格 -->
+            <section id="experience">
+                <table >
+                    <caption>**工作經驗表格**</caption>
+                    <br>
+                    <thead>
+                        <tr>
+                            <th>公司名稱</th>
+                            <th>職位</th>
+                            <th colspan="2">工作期間</th>
+                            <th colspan="2">主要職責</th>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>鴻海</td>
+                            <td>工程師</td>
+                            <td colspan="2">2022-2025</td>
+                            <td colspan="2">寫程式</td>
+                        </tr>
+                        <tr>
+                            <td>台積電</td>
+                            <td>工程師</td>
+                            <td colspan="2">2012-2015</td>
+                            <td colspan="2">寫程式</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
 
+                    
+                    
                 
+                </section> 
+                <!-- 技能列表 -->
+                <section id="skill">
+                    <div>**技能列表**</div>
+                    <ul>
+                        <li>JavaScript</li>
+                        <li>html</li>
+                        <li>CSS</li>
+                    </ul>
+                    
                 
-            
-            </section> 
-            <!-- 技能列表 -->
-            <section id="skill">
-                <div>**技能列表**</div>
-                <ul>
-                    <li>JavaScript</li>
-                    <li>html</li>
-                    <li>CSS</li>
-                </ul>
-                
-            
-            </section> 
+                </section> 
         
-        
+        </div>
     
     </main>
 
-    <footer>
+    <footer class="footer">
         <!-- 聯絡表單 -->
         <form id="contact" method="post" action="https://demo2505.contractors.com.tw/contact.php">
             <fieldset>
@@ -260,5 +458,6 @@
 
             
     </footer>
+    </div>
 </body>
 </html>
